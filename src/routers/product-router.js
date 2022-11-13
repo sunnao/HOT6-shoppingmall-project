@@ -5,6 +5,7 @@ import multer from 'multer';
 
 const productRouter = Router();
 
+// 디스크스토리지에 이미지 저장(multer)
 const storage = multer.diskStorage({
 	destination: function (req, file, cd) {
 		cd(
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
 		cb(null, Date.now() + '-' + file.originalname);
 	},
 });
-let multerUpload = multer({ storage: storage });
+const multerUpload = multer({ storage: storage });
 
 // 제품 등록 api
 productRouter.post(
@@ -27,22 +28,20 @@ productRouter.post(
 				size,
 				color,
 				price,
-				free_delivery,
+				categoryId,
 				detailDescription,
-				category,
 				stock,
 			} = req.body;
-			const filename = req.file.filename;
+			const productImgName = req.file.filename;
 			await productService.addProduct({
 				name,
 				size,
 				color,
 				price,
-				free_delivery,
-				category,
+				categoryId,
 				detailDescription,
 				stock,
-				productImage:filename,
+				productImgName,
 			});
 
 			res.status(201).redirect('/admin/addProduct/addProduct.html');
