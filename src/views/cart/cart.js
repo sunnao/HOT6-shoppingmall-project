@@ -1,4 +1,4 @@
-import { navTemplate } from '/common/nav.js';
+import { navTemplate, getCategoriseList } from '/common/nav.js';
 addNav();
 
 //selectors
@@ -11,7 +11,7 @@ const removeCheckedInput = $('.removeChecked');
 /**상단 navbar 모듈*/
 function addNav() {
 	const header = document.querySelector('.headerNav');
-	header.innerHTML = navTemplate();
+	header.innerHTML = navTemplate(), getCategoriseList();
 }
 
 const showProductCounts = () => {

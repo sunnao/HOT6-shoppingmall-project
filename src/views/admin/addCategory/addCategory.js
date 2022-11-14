@@ -1,4 +1,4 @@
-import { navTemplate } from '/common/nav.js';
+import { navTemplate, getCategoriseList } from '/common/nav.js';
 import { createModal } from '/common/modal.js';
 import { quest } from '/common/quest.js';
 /* 참조 함수 */
@@ -7,7 +7,7 @@ const $ = (selector) => document.querySelector(selector);
 /* nav Template */
 function addNav() {
 	const header = $('.headerNav');
-	header.innerHTML = navTemplate();
+	header.innerHTML = navTemplate(), getCategoriseList();
 }
 addNav();
 

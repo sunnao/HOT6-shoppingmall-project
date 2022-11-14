@@ -1,3 +1,7 @@
+import * as Api from '../../api.js';
+/* 참조함수 */
+const $ = (selector) => document.querySelector(selector);
+
 /* nav template */
 export function navTemplate() {
 	return `
@@ -35,8 +39,8 @@ export function navTemplate() {
 						class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4"
 						id="dropdown"
 					>
-						<ul class="py-1" aria-labelledby="dropdown">
-							<li>
+						<ul id="dropdown-ul" class="py-1" aria-labelledby="dropdown">
+							<!-- <li>
 								<a
 									href="/category/all"
 									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
@@ -63,7 +67,7 @@ export function navTemplate() {
 									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
 									>디퓨저</a
 								>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</li>
@@ -91,4 +95,24 @@ export function navTemplate() {
 			</ul>
 		</nav>
   `;
+}
+
+// 등록되어있는 카테고리 리스트를 api로 가져와서, 드롭박스추가
+export async function getCategoriseList() {
+	const dropdown = $('#dropdown-ul');
+  const categories = await Api.get("/api/categories");
+  categories.forEach((category) => {
+    const { _id, name } = category;
+
+    dropdown.insertAdjacentHTML(
+      "beforeend",
+      `<li>
+				<a
+					href="/category/incense-holder"
+					class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
+					>${name}</a
+				>
+			</li>`
+    );
+  });
 }
