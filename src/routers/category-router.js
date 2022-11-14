@@ -22,7 +22,6 @@ categoryRouter.post('/category', adminOnly, async function (req, res, next) {
 // 2. 전체 카테고리 목록 조회
 categoryRouter.get(
 	'/categories',
-	loginRequired,
 	async function (req, res, next) {
 		try {
 			const categories = await categoryService.getAllCategories();

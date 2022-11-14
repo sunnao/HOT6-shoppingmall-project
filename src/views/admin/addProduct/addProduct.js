@@ -1,11 +1,14 @@
+// import { response } from 'express';
 import { navTemplate } from '/common/nav.js';
 import { quest } from '/common/quest.js';
+import * as Api from '../../api.js';
 /* nav Template */
 function addNav() {
 	const header = document.querySelector('.headerNav');
 	header.innerHTML = navTemplate();
 }
 addNav();
+addOptionsToSelectBox();;
 
 /* 참조함수 */
 const $ = (selector) => document.querySelector(selector);
@@ -44,12 +47,11 @@ function imgPathDisplay() {
 		}
 	}
 }
-
 let formData = new FormData();
 
 let newTitle;
 let newColor;
-let newCategory;
+let newCategoryId;
 let newPrice;
 let newStock;
 let newSize;
@@ -71,11 +73,32 @@ titleInput.addEventListener('change', (e) => {
 	return newTitle;
 });
 
+
+
 const categoryValue = $('#category');
+// 등록되어있는 카테고리 리스트를 api로 가져와서, 옵션 태그를 만들어 삽입함.
+async function addOptionsToSelectBox() {
+  const categorys = await Api.get("/api/categories");
+  categorys.forEach((category) => {
+    const { _id, name } = category;
+
+    categoryValue.insertAdjacentHTML(
+      "beforeend",
+      `
+      <option value=${_id}> ${name} </option>`
+    );
+  });
+}
 categoryValue.addEventListener('change', (e) => {
-	newCategory = e.target.value;
-	return newCategory;
+	
+	newCategoryId = e.target.value;
+	return newCategoryId;
 });
+
+
+
+
+
 const colorValue = $('#color');
 colorValue.addEventListener('change', (e) => {
 	newColor = e.target.value;
@@ -119,7 +142,7 @@ addBtn.addEventListener('click', (e) => {
 	});
 	formData.append('name', newTitle);
 	formData.append('color', newColor);
-	formData.append('category', newCategory);
+	formData.append('categoryId', newCategoryId);
 	formData.append('size', newSize);
 	formData.append('stock', newStock);
 	formData.append('price', newPrice);
