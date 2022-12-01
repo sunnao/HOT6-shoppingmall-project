@@ -63,7 +63,7 @@ productRouter.get('/products', async function (req, res, next) {
 });
 
 //카테고리별 제품 목록 api
-//category에 해당하는 제품 목록을 가져옴
+//category이름에 해당하는 제품 목록을 가져옴
 productRouter.get(
 	'/products/category/:categoryName',
 	async function (req, res, next) {

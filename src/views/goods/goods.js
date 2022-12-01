@@ -1,5 +1,6 @@
 import { navTemplate, getCategoriseList } from '/common/nav.js';
 const $ = (selector) => document.querySelector(selector);
+import * as Api from '../../api.js'
 
 /* nav Template */
 function addNav() {
@@ -11,7 +12,7 @@ addNav();
 /**fetch로 받아온 데이터를 반복문을 통해 list로 생성해주는 함수 */
 const createGoods = (productDatas, productList) => {
 	productDatas.forEach((product) => {
-		const src = `/images/products/${product.productImage}`;
+		const src = `/images/products/${product.productImgName}`;
 		console.log(product);
 
 		//이미지마다 상품 고유의 id를 부여하고 각각 상품 고유 페이지로 이동할 수 있도록 href 처리
@@ -40,26 +41,19 @@ const createGoods = (productDatas, productList) => {
 	});
 };
 
+/* 뭐가 안되니 -SUNA
+카테고리 드롭다운 category/~~~
+1. category/all 카테고리 전체 -> 전체상품불러오기는 await get('/api/products') -> 됨
+2. category/카테고리명(한글) -> 어떻게 사용하나? await Api.get(`/api/products/category/:categoryName
+*/
+
 /**상품데이터를 fetch로 받아오고 category에 따라 필터링해주는 함수 */
 const loadAllProducts = async () => {
 	const productList = document.querySelector('.product-list');
-	const category = window.location.pathname.split('/')[2];
-	const response = await fetch('/api/products');
+	const response = await get('/api/products');
 	let productDatas = await response.json();
-	if (category == 'normal') {
-		productDatas = productDatas.filter((product) => product.category == '일반');
-	} else if (category == 'incense-holder') {
-		productDatas = productDatas.filter(
-			(product) => product.category == '인센스홀더',
-		);
-	} else if (category == 'diffuser') {
-		productDatas = productDatas.filter(
-			(product) => product.category == '디퓨저',
-		);
-	}
-
-	//모든 상품 정보를 불러와서 필터링이 완료된 후에 보여줄 상품목록을 생성
 	createGoods(productDatas, productList);
+	// createGoods(productDatas, productsByCategory);
 
 	//각각의 상품 이미지마다 클릭이벤트를 달아서
 	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
@@ -74,5 +68,43 @@ const loadAllProducts = async () => {
 		});
 	});
 };
+
+// /**상품데이터를 fetch로 받아오고 category에 따라 필터링해주는 함수 */
+// const loadAllProducts = async () => {
+// 	const productList = document.querySelector('.product-list'); //goods.html_Line28)product-list
+// 	// const category = window.location.pathname.split('/')[2];
+// 	const response = await fetch('/api/products');
+// 	let productDatas = await response.json();
+// 	// if (category == 'normal') {
+// 	// 	productDatas = productDatas.filter((product) => product.category == '일반');
+// 	// }else if (category == 'incense-holder') {
+// 	// 	productDatas = productDatas.filter(
+// 	// 		(product) => product.category == '인센스홀더',
+// 	// 	);
+// 	// } else if (category == 'diffuser') {
+// 	// 	productDatas = productDatas.filter(
+// 	// 		(product) => product.category == '디퓨저',
+// 	// 	);
+// 	// }
+
+// 	// const productsByCategory = await Api.get(`/api/products/category/:categoryName`);
+
+// 	//모든 상품 정보를 불러와서 필터링이 완료된 후에 보여줄 상품목록을 생성
+// 	createGoods(productDatas, productList);
+// 	// createGoods(productDatas, productsByCategory);
+
+// 	//각각의 상품 이미지마다 클릭이벤트를 달아서
+// 	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
+// 	const productItems = document.querySelectorAll('.productItem'); //line 22) productItem
+// 	productItems.forEach((productItem) => {
+// 		productItem.addEventListener('click', (e) => {
+// 			let productData = productDatas.filter(
+// 				(product) => product._id == e.target.id,
+// 			);
+// 			productData = JSON.stringify(productData);
+// 			window.localStorage.setItem('detail', productData);
+// 		});
+// 	});
+// };
 
 loadAllProducts();

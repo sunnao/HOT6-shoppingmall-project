@@ -40,14 +40,14 @@ export function navTemplate() {
 						id="dropdown"
 					>
 						<ul id="dropdown-ul" class="py-1" aria-labelledby="dropdown">
-							<!-- <li>
+							<li>
 								<a
 									href="/category/all"
 									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
 									>전체</a
 								>
 							</li>
-							<li>
+							<!-- <li>
 								<a
 									href="/category/normal"
 									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
@@ -108,7 +108,7 @@ export async function getCategoriseList() {
       "beforeend",
       `<li>
 				<a
-					href="/category/incense-holder"
+					href="/category/${name}"
 					class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
 					>${name}</a
 				>
