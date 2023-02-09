@@ -1,11 +1,11 @@
 import { navTemplate, getCategoriseList } from '/common/nav.js';
 const $ = (selector) => document.querySelector(selector);
-import * as Api from '../../api.js'
+import * as Api from '../../api.js';
 
 /* nav Template */
 function addNav() {
 	const header = document.querySelector('.headerNav');
-	header.innerHTML = navTemplate(), getCategoriseList();
+	(header.innerHTML = navTemplate()), getCategoriseList();
 }
 addNav();
 
@@ -41,71 +41,28 @@ const createGoods = (productDatas, productList) => {
 	});
 };
 
-// /**상품데이터를 fetch로 받아오고 category에 따라 필터링해주는 함수 */
-// const loadAllProducts = async () => {
-// 	const productList = document.querySelector('.product-list');
-// 	const category = window.location.pathname.split('/')[2];
-// 	const response = await fetch('/api/products');
-// 	let productDatas = await response.json();
-// 	if (category == 'normal') {
-// 		productDatas = productDatas.filter((product) => product.category == '일반');
-// 	} else if (category == 'incense-holder') {
-// 		productDatas = productDatas.filter(
-// 			(product) => product.category == '인센스홀더',
-// 		);
-// 	} else if (category == 'diffuser') {
-// 		productDatas = productDatas.filter(
-// 			(product) => product.category == '디퓨저',
-// 		);
-// 	}
-
-// 	//모든 상품 정보를 불러와서 필터링이 완료된 후에 보여줄 상품목록을 생성
-// 	createGoods(productDatas, productList);
-
-// 	//각각의 상품 이미지마다 클릭이벤트를 달아서
-// 	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
-// 	const productItems = document.querySelectorAll('.productItem');
-// 	productItems.forEach((productItem) => {
-// 		productItem.addEventListener('click', (e) => {
-// 			let productData = productDatas.filter(
-// 				(product) => product._id == e.target.id,
-// 			);
-// 			productData = JSON.stringify(productData);
-// 			window.localStorage.setItem('detail', productData);
-// 		});
-// 	});
-// };
-
-
-const getAllProducts = async ()=>{
-	const res = await fetch('/api/products');
-	if (!res.ok) {
-		const errorContent = await res.json();
-		const { reason } = errorContent;
-		throw new Error(reason);
-	}
-	const productDatas = await res.json();
-	console.log(productDatas)
-	return productDatas;
-}
-
-const getProductsByCategory = async ()=>{
+const getProductsByCategory = async () => {
 	const category = decodeURI(window.location.pathname.split('/')[2]);
-		if (category === "전체"){
-			getAllProducts();
-		} else {
-			const res = await fetch(`/api/products/category/${category}`);
-			if (!res.ok) {
-				const errorContent = await res.json();
-				const { reason } = errorContent;
-				throw new Error(reason);
-			}
-			const productDatas = await res.json();
-			console.log(productDatas)
-			return productDatas;
+	let productDatas;
+	if (category === '전체') {
+		productDatas = await Api.get('/api/products');
+	} else {
+		productDatas = await Api.get(`/api/products/category/${category}`);
 	}
-}
 
-// loadAllProducts();
+	createGoods(productDatas, $('.product-list'));
+
+	//각각의 상품 이미지마다 클릭이벤트를 달아서
+	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
+	document.querySelectorAll('.productItem').forEach((productItem) => {
+		productItem.addEventListener('click', (e) => {
+			let productData = productDatas.filter(
+				(product) => product._id == e.target.id,
+			);
+			productData = JSON.stringify(productData);
+			window.localStorage.setItem('detail', productData);
+		});
+	});
+};
+
 getProductsByCategory();
-
