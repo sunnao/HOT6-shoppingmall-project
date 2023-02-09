@@ -22,8 +22,8 @@ const createGoods = (productDatas, productList) => {
 		  <div class="productItem hover:-translate-y-0.5 transition [&:nth-child(2)]:col-span-1  flex-col justify-between items-center w-full bg-slate-200">
 		    <div class="w-full h-4/6 overflow-hidden">
 					<a href="/goods-detail/${product._id}">
-						<img class="object-cover " id="${product._id}" src="${
-				src ? src : '../images/no-image.png'
+						<img class="object-cover" id="${product._id}" src="${
+				src ? src : '/images/no-image.png'
 			}" alt="상품이미지">		
 					</a>
 		    </div>
@@ -41,61 +41,30 @@ const createGoods = (productDatas, productList) => {
 	});
 };
 
-/* 뭐가 안되니 -SUNA
-카테고리 드롭다운 category/~~~
-1. category/all 카테고리 전체 -> 전체상품불러오기는 await get('/api/products') -> 됨
-2. category/카테고리명(한글) -> 어떻게 사용하나? await Api.get(`/api/products/category/:categoryName
-*/
-
-/**상품데이터를 fetch로 받아오고 category에 따라 필터링해주는 함수 */
-const loadAllProducts = async () => {
-	const productList = document.querySelector('.product-list');
-	const response = await get('/api/products');
-	let productDatas = await response.json();
-	createGoods(productDatas, productList);
-	// createGoods(productDatas, productsByCategory);
-
-	//각각의 상품 이미지마다 클릭이벤트를 달아서
-	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
-	const productItems = document.querySelectorAll('.productItem');
-	productItems.forEach((productItem) => {
-		productItem.addEventListener('click', (e) => {
-			let productData = productDatas.filter(
-				(product) => product._id == e.target.id,
-			);
-			productData = JSON.stringify(productData);
-			window.localStorage.setItem('detail', productData);
-		});
-	});
-};
-
 // /**상품데이터를 fetch로 받아오고 category에 따라 필터링해주는 함수 */
 // const loadAllProducts = async () => {
-// 	const productList = document.querySelector('.product-list'); //goods.html_Line28)product-list
-// 	// const category = window.location.pathname.split('/')[2];
+// 	const productList = document.querySelector('.product-list');
+// 	const category = window.location.pathname.split('/')[2];
 // 	const response = await fetch('/api/products');
 // 	let productDatas = await response.json();
-// 	// if (category == 'normal') {
-// 	// 	productDatas = productDatas.filter((product) => product.category == '일반');
-// 	// }else if (category == 'incense-holder') {
-// 	// 	productDatas = productDatas.filter(
-// 	// 		(product) => product.category == '인센스홀더',
-// 	// 	);
-// 	// } else if (category == 'diffuser') {
-// 	// 	productDatas = productDatas.filter(
-// 	// 		(product) => product.category == '디퓨저',
-// 	// 	);
-// 	// }
-
-// 	// const productsByCategory = await Api.get(`/api/products/category/:categoryName`);
+// 	if (category == 'normal') {
+// 		productDatas = productDatas.filter((product) => product.category == '일반');
+// 	} else if (category == 'incense-holder') {
+// 		productDatas = productDatas.filter(
+// 			(product) => product.category == '인센스홀더',
+// 		);
+// 	} else if (category == 'diffuser') {
+// 		productDatas = productDatas.filter(
+// 			(product) => product.category == '디퓨저',
+// 		);
+// 	}
 
 // 	//모든 상품 정보를 불러와서 필터링이 완료된 후에 보여줄 상품목록을 생성
 // 	createGoods(productDatas, productList);
-// 	// createGoods(productDatas, productsByCategory);
 
 // 	//각각의 상품 이미지마다 클릭이벤트를 달아서
 // 	//클릭한 상품 이미지과 동일한 id를 가진 제품의 정보만 로컬스토리지에 저장
-// 	const productItems = document.querySelectorAll('.productItem'); //line 22) productItem
+// 	const productItems = document.querySelectorAll('.productItem');
 // 	productItems.forEach((productItem) => {
 // 		productItem.addEventListener('click', (e) => {
 // 			let productData = productDatas.filter(
@@ -107,4 +76,36 @@ const loadAllProducts = async () => {
 // 	});
 // };
 
-loadAllProducts();
+
+const getAllProducts = async ()=>{
+	const res = await fetch('/api/products');
+	if (!res.ok) {
+		const errorContent = await res.json();
+		const { reason } = errorContent;
+		throw new Error(reason);
+	}
+	const productDatas = await res.json();
+	console.log(productDatas)
+	return productDatas;
+}
+
+const getProductsByCategory = async ()=>{
+	const category = decodeURI(window.location.pathname.split('/')[2]);
+		if (category === "전체"){
+			getAllProducts();
+		} else {
+			const res = await fetch(`/api/products/category/${category}`);
+			if (!res.ok) {
+				const errorContent = await res.json();
+				const { reason } = errorContent;
+				throw new Error(reason);
+			}
+			const productDatas = await res.json();
+			console.log(productDatas)
+			return productDatas;
+	}
+}
+
+// loadAllProducts();
+getProductsByCategory();
+
