@@ -42,32 +42,11 @@ export function navTemplate() {
 						<ul id="dropdown-ul" class="py-1" aria-labelledby="dropdown">
 							<li>
 								<a
-									href="/category/all"
+									href="/category/전체"
 									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
-									>전체</a
-								>
+									>전체
+								</a>
 							</li>
-							<!-- <li>
-								<a
-									href="/category/normal"
-									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
-									>일반돌</a
-								>
-							</li>
-							<li>
-								<a
-									href="/category/incense-holder"
-									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
-									>인센스홀더</a
-								>
-							</li>
-							<li>
-								<a
-									href="/category/diffuser"
-									class="hover:bg-gray-100 text-gray-700 block px-4 py-2"
-									>디퓨저</a
-								>
-							</li> -->
 						</ul>
 					</div>
 				</li>
