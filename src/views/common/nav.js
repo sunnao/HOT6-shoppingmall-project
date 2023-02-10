@@ -9,7 +9,7 @@ export function navTemplate() {
 			<ul id="navbar" class="flex w-full" aria-label="breadcrumbs">
 				<li class="pl-10 flex items-center my-auto text-xl">
 					<a href="/" class="inline-block h-10 w-10">
-						<img class="w-full h-full" src="/images/image.png" alt="홈버튼">
+						<img class="w-full h-full" src="/images/dolpalee-logo.png" alt="홈버튼">
 					</a>
 				</li>
 				<li class="pl-10">
