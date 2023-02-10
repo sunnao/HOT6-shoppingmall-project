@@ -1,4 +1,4 @@
-import * as Api from '../../api.js';
+import * as Api from '/api.js';
 /* 참조함수 */
 const $ = (selector) => document.querySelector(selector);
 
