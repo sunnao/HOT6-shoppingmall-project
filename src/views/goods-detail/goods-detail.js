@@ -1,3 +1,4 @@
+import { navTemplate, getCategoriseList } from '/common/nav.js';
 const $ = (selector) => document.querySelector(selector);
 const store = window.localStorage;
 const btnAddCart = $('.addCart');
@@ -8,12 +9,11 @@ const descriptionTag = $('.description');
 const countTag = $('.countTag');
 const productImage = $('.image');
 const nowPurchaseBtn = document.getElementById('shoppingButton');
-import { navTemplate, getCategoriseList } from '/common/nav.js';
 
 /**nav Template*/
 function addNav() {
 	const header = document.querySelector('.headerNav');
-	(header.innerHTML = navTemplate()), getCategoriseList();
+	header.innerHTML = navTemplate(), getCategoriseList();
 }
 addNav();
 

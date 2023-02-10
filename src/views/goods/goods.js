@@ -1,8 +1,10 @@
 import { navTemplate, getCategoriseList } from '/common/nav.js';
-const $ = (selector) => document.querySelector(selector);
 import * as Api from '/api.js';
 import { addCommas } from '/useful-functions.js';
+const $ = (selector) => document.querySelector(selector);
+const slectedCategory = decodeURI(window.location.pathname.split('/')[2]);
 
+$('title').innerText = `${slectedCategory} | 돌팔이`;
 /* nav Template */
 function addNav() {
 	const header = document.querySelector('.headerNav');
@@ -43,12 +45,11 @@ const createGoods = (productDatas, productList) => {
 };
 
 const getProductsByCategory = async () => {
-	const category = decodeURI(window.location.pathname.split('/')[2]);
 	let productDatas;
-	if (category === '전체') {
+	if (slectedCategory === '전체') {
 		productDatas = await Api.get('/api/products');
 	} else {
-		productDatas = await Api.get(`/api/products/category/${category}`);
+		productDatas = await Api.get(`/api/products/category/${slectedCategory}`);
 	}
 
 	createGoods(productDatas, $('.product-list'));
@@ -66,4 +67,19 @@ const getProductsByCategory = async () => {
 	});
 };
 
+const loadCategoryInfo = async () => {
+	const categoryList = await Api.get('/api/categories');
+	const slectedCategoryData = categoryList.filter(
+		(data) => data.name === slectedCategory,
+	);
+	if (slectedCategoryData.length !== 0) {
+		$('.category').innerText = slectedCategory;
+		$('.categoryDescription').innerText = slectedCategoryData[0].description;
+	} else if (slectedCategory === '전체') {
+		$('.category').innerText = '전체';
+		$('.categoryDescription').innerText = '판매 중인 모든 애완돌입니다.';
+	} else throw new Error(reason);
+};
+
+loadCategoryInfo();
 getProductsByCategory();
