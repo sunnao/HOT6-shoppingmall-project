@@ -1,6 +1,7 @@
 import { navTemplate, getCategoriseList } from '/common/nav.js';
 const $ = (selector) => document.querySelector(selector);
-import * as Api from '../../api.js';
+import * as Api from '/api.js';
+import { addCommas } from '/useful-functions.js';
 
 /* nav Template */
 function addNav() {
@@ -19,20 +20,20 @@ const createGoods = (productDatas, productList) => {
 		productList.insertAdjacentHTML(
 			'beforeend',
 			`
-		  <div class="productItem hover:-translate-y-0.5 transition [&:nth-child(2)]:col-span-1  flex-col justify-between items-center w-full bg-slate-200">
-		    <div class="w-full h-4/6 overflow-hidden">
+		  <div class="productItem hover:-translate-y-0.5 transition [&:nth-child(2)]:col-span-1  flex-col justify-between items-center w-full">
+		    <div class="rounded-md w-full h-4/6 overflow-hidden">
 					<a href="/goods-detail/${product._id}">
-						<img class="object-cover" id="${product._id}" src="${
+						<img class="w-full h-full object-cover" id="${product._id}" src="${
 				src ? src : '/images/no-image.png'
 			}" alt="상품이미지">		
 					</a>
 		    </div>
 				<div class="">
 					<div class="p-2">
-						<p class="bold text-lg">${product.name}</p>
+						<p class="font-bold text-lg">${product.name}</p>
 					</div>
 					<div>
-						${product.price}원
+						${addCommas(product.price)}원
 					</div>
 				</div>
 	    </div>
