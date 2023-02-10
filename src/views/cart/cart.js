@@ -1,5 +1,4 @@
-import { navTemplate, getCategoriseList } from '/common/nav.js';
-addNav();
+import { navTemplate, getCategoriseList,logoutEvent } from '/common/nav.js';
 
 //selectors
 const $ = (selector) => document.querySelector(selector);
@@ -12,7 +11,9 @@ const removeCheckedInput = $('.removeChecked');
 function addNav() {
 	const header = document.querySelector('.headerNav');
 	header.innerHTML = navTemplate(), getCategoriseList();
+	logoutEvent();
 }
+addNav();
 
 const showProductCounts = () => {
 	const allPrices = document.querySelectorAll('.eachPrice');

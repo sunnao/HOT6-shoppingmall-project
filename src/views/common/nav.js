@@ -129,8 +129,8 @@ const loginNav = `
 					<li class="w-1/6 min-w-fit pr-3 my-auto text-center text-base">
 						<a href="/account">계정관리</a>
 					</li>
-					<li class="w-1/6 min-w-fit pr-3 my-auto text-center text-base">
-						<a href="/register">로그아웃</a>
+					<li class="logoutBtn w-1/6 min-w-fit pr-3 my-auto text-center text-base">
+						<a href="/">로그아웃</a>
 					</li>
 					<li class="w-1/6 min-w-fit my-auto text-base">
 						<a href="/cart">
@@ -148,6 +148,16 @@ const loginNav = `
 export function navTemplate() {
 	return isLogin() ? loginNav : notLoginNav
 }
+export function logoutEvent(){
+	if($('.logoutBtn')){
+		$('.logoutBtn').addEventListener('click',e=>{
+				e.preventDefault();
+				sessionStorage.removeItem('token');
+				window.location.href = '/';
+			})
+	}
+}
+
 
 // 등록되어있는 카테고리 리스트를 api로 가져와서, 드롭박스추가
 export async function getCategoriseList() {
