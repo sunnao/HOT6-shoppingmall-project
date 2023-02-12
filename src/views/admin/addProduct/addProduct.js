@@ -22,7 +22,6 @@ const imginput = $('.imgInput');
 function imgPathDisplay() {
 	const preview = $('.imgPath');
 	const curFiles = imginput.files;
-	console.log(curFiles);
 	/* 업로드 클릭시 초기화 */
 	while (preview.firstChild) {
 		preview.removeChild(preview.firstChild);
@@ -43,7 +42,6 @@ function imgPathDisplay() {
 			para.textContent = `${file.name}`;
 			listItem.appendChild(para);
 			list.appendChild(listItem);
-			console.log(file);
 			return file;
 		}
 	}
@@ -112,7 +110,6 @@ sizeSmall.addEventListener('change', (e) => {
 });
 const sizeMedium = $('#sizeMedium');
 sizeMedium.addEventListener('change', (e) => {
-	console.log(e.target);
 	return (newSize = e.target.value);
 });
 const sizeLarge = $('#sizeLarge');
@@ -154,7 +151,6 @@ addBtn.addEventListener('click', (e) => {
 });
 
 async function addProduct(formData) {
-	console.log(formData);
 	await fetch('/api/product', {
 		method: 'POST',
 		headers: {

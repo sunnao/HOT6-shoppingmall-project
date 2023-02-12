@@ -18,7 +18,6 @@ userRouter.post('/register', async (req, res, next) => {
 			...(address && { address }),
 			...(role && { role }),
 		};
-		console.log(userInfo);
 		const newUser = await userService.addUser(userInfo);
 
 		res.status(201).json(newUser);

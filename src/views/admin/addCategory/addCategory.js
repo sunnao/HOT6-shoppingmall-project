@@ -39,7 +39,6 @@ async function allCategories() {
 		},
 	});
 	const result = await response.json();
-	console.log(result);
 	result.forEach((e) => {
 		const categoryForm = $('.categoryForm');
 		const id = e._id;
@@ -177,7 +176,6 @@ const deleteElem = async (result) => {
 				deleteElem.remove();
 				body.removeChild(modalEl);
 				deleteCategory(id);
-				console.log(id);
 			});
 		});
 	});

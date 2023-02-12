@@ -17,7 +17,6 @@ addNav();
 const createGoods = (productDatas, productList) => {
 	productDatas.forEach((product) => {
 		const src = `/images/products/${product.productImgName}`;
-		console.log(product);
 
 		//이미지마다 상품 고유의 id를 부여하고 각각 상품 고유 페이지로 이동할 수 있도록 href 처리
 		productList.insertAdjacentHTML(

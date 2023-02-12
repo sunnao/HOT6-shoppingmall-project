@@ -50,7 +50,6 @@ async function allUserList() {
 		},
 	});
 	const result = await response.json();
-	console.log(result);
 	result.forEach((elem) => {
 		const userListCon = $('.userListCon');
 		const id = elem._id;
@@ -62,8 +61,6 @@ async function allUserList() {
 }
 
 /* 버튼 연결 */
-
-console.log(userDeleteBtn);
 const userDeleteBtn = $('.userDelete');
 userDeleteBtn.addEventListener('click', (e) => {
 	createModal(modal);

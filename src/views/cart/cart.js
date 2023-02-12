@@ -24,8 +24,6 @@ const showProductCounts = () => {
 	allPrices.forEach(
 		(eachPrice, index) => (eachPrice.innerText = allPricesData[index] + '원'),
 	);
-
-	console.log(allPricesData);
 };
 
 /**상품 checked상태를 받아와서 그대로 화면에 보여주기 위한 함수 */
