@@ -22,22 +22,18 @@
 			defer
 		></script>
 	</head>
-	<body>
+	<body class="h-screen">
 		<!-- 헤더 -->
 		<header class="headerNav"></header>
-		<div class="div-container overflow-hidden">
-			<div class="landing flex" id="landingDiv">
-				<ul class="w-[600%] flex h-95" id="slider">
+		<div class="h-[87%]">
+			<div class="landing flex max-h-[90%] div-container" id="landingDiv">
+				<ul class="w-[600%] flex overflow-hidden" id="slider">
 					<div
-						class="slider-con flex w-full h-full relative transition-all"
+						class="slider-con flex w-full h-full relative transition-all "
 					></div>
-					<button
-						class="bg-[url('../images/arrow-left.png')] z-10 float-left w-14 h-14 inset-y-0"
-					></button>
-					<button class="bg-[url('../images/arrow-right.png')]"></button>
 				</ul>
 			</div>
-			<div class="flex justify-center mt-10">
+			<div class="flex justify-center my-5">
 				<a href="/category/전체">
 					<button
 						class="px-6 py-3 bg-slate-200 hover:bg-slate-500 hover:text-white font-bold rounded"
