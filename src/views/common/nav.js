@@ -55,7 +55,7 @@ const notLoginNav =`
 	</div>
 
 	<div class="flex justify-end items-stretch w-1/2 min-w-fit pr-20">
-		<li class="w-1/6 min-w-fit pr-3 my-auto text-center text-base">
+		<li class="login w-1/6 min-w-fit pr-3 my-auto text-center text-base">
 			<a href="/login">로그인</a>
 		</li>
 		<li class="w-1/6 min-w-fit pr-3 my-auto text-base">
@@ -154,6 +154,18 @@ export function logoutEvent(){
 				e.preventDefault();
 				sessionStorage.removeItem('token');
 				window.location.href = '/';
+			})
+	}
+}
+
+export function loginClick(){
+	if($('.login')){
+		$('.login').addEventListener('click',e=>{
+				e.preventDefault();
+				// 현재 페이지의 url 주소 추출하기
+				const pathname = window.location.pathname;
+				sessionStorage.setItem('pathname', pathname);
+				window.location.href="/login"
 			})
 	}
 }

@@ -1,4 +1,4 @@
-import { navTemplate, getCategoriseList,logoutEvent } from '/common/nav.js';
+import { navTemplate, getCategoriseList, logoutEvent, loginClick } from '/common/nav.js';
 import * as Api from '/api.js';
 import { addCommas } from '/useful-functions.js';
 const $ = (selector) => document.querySelector(selector);
@@ -10,6 +10,7 @@ function addNav() {
 	const header = document.querySelector('.headerNav');
 	(header.innerHTML = navTemplate()), getCategoriseList();
 	logoutEvent();
+	loginClick();
 }
 addNav();
 

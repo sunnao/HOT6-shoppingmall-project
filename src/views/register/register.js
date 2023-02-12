@@ -1,13 +1,14 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
 const $ = (selector) => document.querySelector(selector);
-import { navTemplate, getCategoriseList,logoutEvent } from '/common/nav.js';
+import { navTemplate, getCategoriseList, logoutEvent, loginClick } from '/common/nav.js';
 
 /* nav Template */
 function addNav() {
 	const header = document.querySelector('.headerNav');
 	header.innerHTML = navTemplate(), getCategoriseList();
 	logoutEvent();
+	loginClick();
 }
 addNav();
 

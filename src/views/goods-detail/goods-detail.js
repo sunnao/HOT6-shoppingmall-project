@@ -1,4 +1,4 @@
-import { navTemplate, getCategoriseList,logoutEvent } from '/common/nav.js';
+import { navTemplate, getCategoriseList, logoutEvent, loginClick } from '/common/nav.js';
 const $ = (selector) => document.querySelector(selector);
 const store = window.localStorage;
 const btnAddCart = $('.addCart');
@@ -15,6 +15,7 @@ function addNav() {
 	const header = document.querySelector('.headerNav');
 	header.innerHTML = navTemplate(), getCategoriseList();
 	logoutEvent();
+	loginClick();
 }
 addNav();
 

@@ -1,5 +1,5 @@
 // import { response } from 'express';
-import { navTemplate, getCategoriseList,logoutEvent } from '/common/nav.js';
+import { navTemplate, getCategoriseList, logoutEvent, loginClick } from '/common/nav.js';
 import { quest } from '/common/quest.js';
 import * as Api from '/api.js';
 /* nav Template */
@@ -7,6 +7,7 @@ function addNav() {
 	const header = document.querySelector('.headerNav');
 	header.innerHTML = navTemplate(),getCategoriseList();
 	logoutEvent();
+	loginClick();
 }
 addNav();
 addOptionsToSelectBox();;
